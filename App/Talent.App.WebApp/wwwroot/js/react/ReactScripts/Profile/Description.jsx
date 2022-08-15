@@ -33,7 +33,9 @@ export class Description extends React.Component {
                 </div>
                 <div className="ten wide column">
                     <div className="field" >
-                        <textarea maxLength={characterLimit} name="Description" placeholder="Please tell us about any hobbies, additional expertise, or anything else you’d like to add." value={this.props.description} onChange={this.update} ></textarea>
+                        <textarea maxLength={characterLimit} name="Description" placeholder="Please tell us about any hobbies, additional expertise, or anything else you’d like to add."
+                            value={this.props.description}
+                            onChange={this.update} ></textarea>
                     </div>
                     <p>Characters remaining : {characters} / {characterLimit}</p>
                 </div>

@@ -98,6 +98,8 @@ export default class AccountProfile extends React.Component {
     }
 
     updateForComponentId(componentId, newValues) {
+        let data = {};
+        data[componentId] = newValues;
         this.updateAndSaveData(newValues)
     }
 
@@ -155,16 +157,14 @@ export default class AccountProfile extends React.Component {
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='Description'
-                                            tooltip='Add a short summary and description about yourself'
+                                           
                                         >
-
-                                            <SelfIntroduction
-                                                summary={this.state.profileData.summary}
-                                                description={this.state.profileData.description}
-                                                updateProfileData={this.updateAndSaveData}
-                                                updateWithoutSave={this.updateWithoutSave}
-                                            />
-
+                                        <SelfIntroduction
+                                            summary={this.state.profileData.summary}
+                                            description={this.state.profileData.description}
+                                            updateProfileData={this.updateAndSaveData}
+                                            updateWithoutSave={this.updateWithoutSave}
+                                        />
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='User Details'
@@ -176,6 +176,8 @@ export default class AccountProfile extends React.Component {
                                                 componentId='contactDetails'
                                             />
                                         </FormItemWrapper>
+
+                                
                                         <FormItemWrapper
                                             title='Address'
                                             tooltip='Enter your current address'>
@@ -305,3 +307,5 @@ export default class AccountProfile extends React.Component {
         )
     }
 }
+
+

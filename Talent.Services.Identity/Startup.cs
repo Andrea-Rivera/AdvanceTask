@@ -35,16 +35,7 @@ namespace Talent.Services.Identity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowWebApp", builder =>
-                {
-                    builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
-                });
-            });
+            services.AddCors();
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver
@@ -79,7 +70,10 @@ namespace Talent.Services.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("AllowWebApp");
+            app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
             app.UseMvc();
         }
     }

@@ -5,6 +5,7 @@ import { ChildSingleInput } from '../Form/SingleInput.jsx';
 import { Grid, Dropdown } from 'semantic-ui-react'
 
 
+
 export class Address extends React.Component {
     constructor(props) {
         super(props)
@@ -23,7 +24,7 @@ export class Address extends React.Component {
 
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        //this.handleChange = this.handleChange.bind(this)
         //this.saveContact = this.saveContact.bind(this)
         this.renderEdit = this.renderEdit.bind(this)
         this.renderDisplay = this.renderDisplay.bind(this)
@@ -44,13 +45,13 @@ export class Address extends React.Component {
         })
     }
 
-    handleChange(event) {
-        const data = Object.assign({}, this.state.newContact)
-        data[event.target.name] = event.target.value
-        this.setState({
-            newContact: data
-        })
-    }
+    //handleChange(event) {
+    //    const data = Object.assign({}, this.state.newContact)
+    //    data[event.target.name] = event.target.value
+    //    this.setState({
+    //        newContact: data
+    //    })
+    //}
 
     //saveContact() {
     //    console.log(this.props.componentId)
@@ -67,7 +68,12 @@ export class Address extends React.Component {
     }
 
 
-    renderEdit() {
+
+        renderEdit() {
+            let location = { city: '', country: '' }
+            if (this.state.newContact && this.state.newContact.location) {
+                location = this.state.newContact.location
+            }
         return (
 
             <div className="ui divided three column grid">
@@ -82,7 +88,7 @@ export class Address extends React.Component {
                             maxLength={3}
                             placeholder="Street number"
                             errorMessage="Please enter a valid street number"
-                            cols={2}
+                            
 
                         />
                      </div>
@@ -95,7 +101,7 @@ export class Address extends React.Component {
                             maxLength={80}
                             placeholder="Street name"
                             errorMessage="Please enter a valid street name"
-                            cols={3}
+                            
 
                         />
                      </div>
@@ -107,7 +113,7 @@ export class Address extends React.Component {
                             maxLength={40}
                             placeholder="Enter your suburb"
                             errorMessage="Please enter a valid suburb"
-                            cols={3}
+                            
 
 
                             />
@@ -122,7 +128,7 @@ export class Address extends React.Component {
                             maxLength={40}
                             placeholder="Enter your country"
                             errorMessage="Please enter a valid country"
-                            cols={3}
+                            
 
                         />
                      </div>
@@ -185,56 +191,42 @@ export class Address extends React.Component {
 export class Nationality extends React.Component {
     constructor(props) {
         super(props)
-       
-       
+        //this.handleDropDownSelect = this.handleDropDownSelect.bind(this);
+
+    }
+    componentDidMount() {
     }
 
-    
+    //handleDropDownSelect = (event, data) => {
+    //    console.log(data.value);
+    //};
+
     render() {
-        const options = [
-            { key: 'Australian', text: 'Australian', value: 'Australian' },
-            { key: 'ar', text: 'Argentinian', value: 'Argentinian' },
-            { key: 'Bostnian', text: 'Bostnian', value: 'Bostnian' },
-            { key: 'Brazilian', text: 'Brazilian', value: 'Brazilian' },
-            { key: 'Canadian', text: 'Canadian', value: 'Canadian' },
-            { key: 'Colombian', text: 'Colombian', value: 'Colombian' },
-            { key: 'Costa Rican', text: 'Costa Rican', value: ' Costa Rican' },
-            { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
-            { key: 'Croatian', text: 'Croatian', value: 'Croatian' },
-            { key: 'Argentinian', text: 'Argentinian', value: 'Argentinian' },
-            { key: 'French', text: 'French', value: 'French' },
-            { key: 'German', text: 'German', value: 'German' },
-            { key: 'Greek', text: 'Greek', value: 'Greek' },
-            { key: 'Indian', text: 'Indian', value: 'Indian' },
-            { key: 'Indoneasian', text: 'Indoneasian', value: 'Indonesian' },
-            { key: 'Iranian', text: 'Iranian', value: 'Iranian' },
-            { key: 'Korean', text: 'Korean', value: 'Korean' },
-            { key: 'Nepalese', text: 'Nepalese', value: 'Nepalese' },
-            { key: 'New Zealand', text: 'New Zealand', value: 'New  Zealand' },
-            { key: 'Norwegian', text: 'Norwegian', value: 'Norwegian' },
-            { key: 'Polish', text: 'Polish', value: 'Norwegian' },
-            { key: 'Nor', text: 'Norwegian', value: 'Norwegian' },
-
-        ];
-
-
+        let countriesoptions = [];
+        //const selectedCountry = this.props.location.country;
+        countriesoptions = Object.keys(Countries).map((x) => <option key={x} value={x}>{x}</option>);
         return (
 
 
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <React.Fragment>
+               
+
                         <Dropdown
                             placeholder='Select your Nationality'
                             search
                             selection
-                            options={options}
+                            fluid
+                            options={countriesoptions}
+                            //onChange={this.handleDropDownSelect} 
+                           // value={selectedCountry}
                         />
-                    </React.Fragment>
+
+                        </React.Fragment>
 
                 </div>
             </div>
         );
-    } 
-    
+    }
 }

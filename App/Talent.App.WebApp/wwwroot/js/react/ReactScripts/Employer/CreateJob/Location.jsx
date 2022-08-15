@@ -12,7 +12,6 @@ export class Location extends React.Component {
     componentDidMount() {
 
     }
-    
 
     handleChange(event) {
         var data = Object.assign({}, this.props.location);
