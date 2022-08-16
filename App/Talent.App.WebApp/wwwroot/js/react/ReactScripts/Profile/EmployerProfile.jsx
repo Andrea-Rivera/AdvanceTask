@@ -165,7 +165,7 @@ export default class EmployeeProfile extends React.Component {
             data: JSON.stringify(this.state.employerData),
             success: function (res) {
                 if (res.success) {
-                    TalentUtil.notification.show("Employer details saved successfully", "success", null, null);
+                    TalentUtil.notification.show("Employer details saved successfully ", "success", null, null);
                 }
                 else {
                     TalentUtil.notification.show("Error while saving Employer details", "error", null, null);

@@ -23,8 +23,8 @@ export default class SocialMediaLinkedAccount extends React.Component {
 
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-        this.saveContact = this.saveContact.bind(this)
+       // this.handleChange = this.handleChange.bind(this)
+       // this.saveContact = this.saveContact.bind(this)
         this.renderEdit = this.renderEdit.bind(this)
         this.renderDisplay = this.renderDisplay.bind(this)
 
@@ -49,40 +49,15 @@ export default class SocialMediaLinkedAccount extends React.Component {
         })
     }
 
-    handleChange(event) {
-        const data = Object.assign({}, this.state.newContact)
-        data[event.target.name] = event.target.value
-        this.setState({
-            newContact: data
-        })
-    }
+    //handleChange(event) {
+    //    const data = Object.assign({}, this.state.newContact)
+    //   data[event.target.name] = event.target.value
+    //    this.setState({
+    //        newContact: data
+    //    })
+    //}
 
-    saveContact() {
-        var cookies = Cookies.get('talentAuthToken');
-        $.ajax({
-            url: 'http://localhost:60290/profile/profile/updateTalentProfile',
-            headers: {
-                'Authorization': 'Bearer ' + cookies,
-                'Content-Type': 'application/json'
-            },
-            type: "POST",
-            data: JSON.stringify(this.state.details),
-            success: function (res) {
-                console.log(res)
-                if (res.success == true) {
-                    TalentUtil.notification.show("Social Media updated sucessfully", "success", null, null)
-                } else {
-                    TalentUtil.notification.show("Social Media did not update successfully", "error", null, null)
-                }
-
-            }.bind(this),
-            error: function (res, a, b) {
-                console.log(res)
-                console.log(a)
-                console.log(b)
-            }
-        })
-    }
+   
 
 
     render() {
@@ -125,8 +100,8 @@ export default class SocialMediaLinkedAccount extends React.Component {
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
-                    <button className="ui linkedin button"><i className="linkedin icon" ></i>LinkedIn</button>
-                    <button className="ui github button"><i className="github icon"></i>GitHub</button>
+                    <button className="ui linkedin button" disabled ><i className="linkedin icon" ></i>LinkedIn</button>
+                    <button className="ui github button" disabled><i className="github icon"></i>GitHub</button>
 
                     <button type="button" className="ui right floated teal button" onClick={this.openEdit}>Edit</button>
                 </div>
