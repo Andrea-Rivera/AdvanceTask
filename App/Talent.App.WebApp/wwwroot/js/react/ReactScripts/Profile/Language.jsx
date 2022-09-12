@@ -79,10 +79,14 @@ export default class Language extends React.Component {
 
         ];
         return (
-            <div class="ui container">
+
+            <div className="ui divided three column grid">
+               
+                    <div className="column">
+            
                 <ChildSingleInput
                     inputType="text"
-                    label="Language"
+                   
                     name="language"
                     value={this.state.newContact.language}
                     controlFunc={this.handleChange}
@@ -90,9 +94,11 @@ export default class Language extends React.Component {
                     placeholder="Add Language"
                     errorMessage="Please enter a language"
                 />
-               
+                    </div>
+                    <div className="column">
              
-                <Dropdown
+                    <Dropdown
+                        
                     placeholder='Language Level'
                     label="Level"
                     name="level"
@@ -102,10 +108,13 @@ export default class Language extends React.Component {
                     selection
                     options={options}
                 />
-                       
+                    </div>
+                    <div className="column">
                 <button type="button" className="ui teal button" onClick={this.saveContact}>Add</button>
                 <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
-            </div>
+          
+                </div>
+                </div>
         )
     }
 

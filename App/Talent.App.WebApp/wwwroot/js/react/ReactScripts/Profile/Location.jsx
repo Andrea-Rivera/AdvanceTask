@@ -67,8 +67,6 @@ export class Address extends React.Component {
         )
     }
 
-
-
         renderEdit() {
             let location = { city: '', country: '' }
             if (this.state.newContact && this.state.newContact.location) {
@@ -208,25 +206,22 @@ export class Nationality extends React.Component {
         return (
 
 
-            <div className='row'>
-                <div className="ui sixteen wide column">
-                    <React.Fragment>
-               
+            
+                    <div className='row'>
+                        <div className="ui sixteen wide column">
+                            <React.Fragment>
+                                <Dropdown
+                                    placeholder='Select country'
+                                    search
+                                    selection
+                                    options={countriesoptions}
+                                />
+                            </React.Fragment>
 
-                        <Dropdown
-                            placeholder='Select your Nationality'
-                            search
-                            selection
-                            fluid
-                            options={countriesoptions}
-                            //onChange={this.handleDropDownSelect} 
-                           // value={selectedCountry}
-                        />
+                        </div>
+                    </div>
 
-                        </React.Fragment>
-
-                </div>
-            </div>
+             
         );
     }
 }

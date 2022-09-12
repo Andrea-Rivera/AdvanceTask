@@ -12,8 +12,8 @@ export default class SocialMediaLinkedAccount extends React.Component {
         const details = props.details ?
             Object.assign({}, props.details)
             : {
-                linkein: "",
-                github: ""
+                LinkedIn: "",
+                Github: ""
 
 
             }
@@ -80,21 +80,21 @@ export default class SocialMediaLinkedAccount extends React.Component {
             <div className='ui sixteen wide column'>
                 <ChildSingleInput
                     inputType="text"
-                    label="LinkeIn"
-                    name="linkein"
-                    value={this.state.newContact.linkein}
+                    label="LinkedIn"
+                    name="LinkedIn"
+                    value={this.state.newContact.LinkedIn}
                     controlFunc={this.handleChange} 
                     maxLength={80}
-                    placeholder="Enter your LinkeIn Url"
-                    errorMessage="Please enter a valid LinkeIn  Url"
+                    placeholder="Enter your LinkedIn Url"
+                    errorMessage="Please enter a valid LinkedIn  Url"
 
                 />
 
                 <ChildSingleInput
                     inputType="text"
-                    label="GitHub"
-                    name="github"
-                    value={this.state.newContact.github}
+                    label="Github"
+                    name="Github"
+                    value={this.state.newContact.Github}
                     controlFunc={this.handleChange} 
                     maxLength={80}
                     placeholder="Enter your GitHub Url"

@@ -148,8 +148,17 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public ActionResult AddLanguage([FromBody] AddLanguageViewModel language)
         {
-            //Your code here;
-            throw new NotImplementedException();
+
+            try
+            {
+                var result = _profileService.AddNewLanguage(language);
+                return Json(new { Success = true, Data = result });
+            }
+            catch (MongoException e)
+            {
+                return Json(new { Success = false, e.Message });
+            }
+
         }
 
         [HttpPost("updateLanguage")]

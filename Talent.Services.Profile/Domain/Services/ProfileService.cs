@@ -47,11 +47,27 @@ namespace Talent.Services.Profile.Domain.Services
             _fileService = fileService;
         }
 
-        public bool AddNewLanguage(AddLanguageViewModel language)
+        public async Task<bool> AddNewLanguage(AddLanguageViewModel language)  
         {
-            //Your code here;
-            throw new NotImplementedException();
+            try
+            {
+                if (language.Id != null)
+                {
+                    UserLanguage addLanguage =  await _userLanguageRepository.GetByIdAsync(language.Id);
+                    addLanguage.Language = language.Name;
+                    addLanguage.LanguageLevel = language.Level;
+                     await _userLanguageRepository.Add(addLanguage);
+                    return true;
+                }
+                return false;
+            }
+            catch (MongoException e)
+            {
+                return false;
+            }
         }
+
+
 
 
         public async Task<TalentProfileViewModel> GetTalentProfile(string Id)
@@ -72,7 +88,7 @@ namespace Talent.Services.Profile.Domain.Services
                 {
                     Id = user.Id,
                     FirstName = user.FirstName,
-                    MiddleName = user.MiddleName,
+                    MiddleName = user.Level,
                     LastName = user.LastName,
                     Gender = user.Gender,
                     Email = user.Email,
@@ -119,7 +135,7 @@ namespace Talent.Services.Profile.Domain.Services
                         User existingUser = (await _userRepository.GetByIdAsync(model.Id));
 
                         existingUser.FirstName = model.FirstName;
-                        existingUser.MiddleName = model.MiddleName;
+                        existingUser.Level = model.MiddleName;
                         existingUser.LastName = model.LastName;
                         existingUser.Gender = model.Gender;
                         existingUser.Email = model.Email;

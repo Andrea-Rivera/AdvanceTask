@@ -78,7 +78,7 @@ namespace Talent.Api.Domain.Services
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
-                MiddleName = user.MiddleName,
+                MiddleName = user.Level,
                 LastName = user.LastName,
                 Gender = user.Gender,
                 Email = user.Email,
