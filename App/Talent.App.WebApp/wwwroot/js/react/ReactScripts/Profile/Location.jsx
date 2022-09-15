@@ -12,11 +12,15 @@ export class Address extends React.Component {
         const details = props.details ?
             Object.assign({}, props.details)
             : {
-                address: "",
-                city: "",
-                country: ""
+                Number: "",
+                Street: "",
+                Suburb: "",
+                PostCode:0,
+                City: "",
+                Country: ""
+                
 
-            } 
+            }
         this.state = {
             showEditSection: false,
             newContact: details
@@ -24,8 +28,8 @@ export class Address extends React.Component {
 
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
-        //this.handleChange = this.handleChange.bind(this)
-        //this.saveContact = this.saveContact.bind(this)
+        this.updateProfileData = this.updateProfileData.bind(this)
+        this.saveContact = this.saveContact.bind(this)
         this.renderEdit = this.renderEdit.bind(this)
         this.renderDisplay = this.renderDisplay.bind(this)
     }
@@ -45,138 +49,158 @@ export class Address extends React.Component {
         })
     }
 
-    //handleChange(event) {
-    //    const data = Object.assign({}, this.state.newContact)
-    //    data[event.target.name] = event.target.value
-    //    this.setState({
-    //        newContact: data
-    //    })
-    //}
+    updateProfileData(event) {
+        const data = Object.assign({}, this.state.newContact)
+        data[event.target.name] = event.target.value
+        this.setState({
+            newContact: data
+        })
+    }
 
-    //saveContact() {
-    //    console.log(this.props.componentId)
-    //    console.log(this.state.newContact)
-    //    const data = Object.assign({}, this.state.newContact)
-    //    this.props.controlFunc(this.props.componentId, data)
-    //    this.closeEdit()
-    //}
-   
+    saveContact() {
+
+        console.log(this.state.newContact)
+        const data = Object.assign({}, this.state.newContact)
+        this.props.saveProfileData(data)
+        this.closeEdit()
+    }
+
     render() {
         return (
             this.state.showEditSection ? this.renderEdit() : this.renderDisplay()
         )
     }
 
-        renderEdit() {
-            let location = { city: '', country: '' }
-            if (this.state.newContact && this.state.newContact.location) {
-                location = this.state.newContact.location
-            }
+
+
+    renderEdit() {
+       
         return (
 
             <div className="ui divided three column grid">
                 <div className="row">
                     <div className="column">
-                         
+
+
 
                         <ChildSingleInput
                             inputType="text"
                             label="Number"
-                            name="number"
+                            name="Number"
+                            value={this.state.newContact.Number}
+                            controlFunc={this.updateProfileData}
                             maxLength={3}
-                            placeholder="Street number"
+                            placeholder= "Street number"
                             errorMessage="Please enter a valid street number"
-                            
 
                         />
-                     </div>
-                     <div className="column">
+                    </div>
+                    <div className="column">
 
                         <ChildSingleInput
                             inputType="text"
                             label="Street"
-                            name="street"
+                            name="Street"
+                            value={this.state.newContact.Street}
+                            controlFunc={this.updateProfileData}
                             maxLength={80}
                             placeholder="Street name"
                             errorMessage="Please enter a valid street name"
-                            
 
                         />
-                     </div>
-                     <div className="column">
+
+
+                    </div>
+                    <div className="column">
+                  
                         <ChildSingleInput
                             inputType="text"
                             label="Suburb"
-                            name="suburb"
-                            maxLength={40}
+                            name="Suburb"
+                            value={this.state.newContact.Suburb}
+                            controlFunc={this.updateProfileData}
+                            maxLength={80}
                             placeholder="Enter your suburb"
                             errorMessage="Please enter a valid suburb"
-                            
 
-
-                            />
+                        />
                     </div>
-                 </div>
+                </div>
                 <div className="row">
-                     <div className="column">
+                    <div className="column">
+                    
+
                         <ChildSingleInput
                             inputType="text"
                             label="Country"
-                            name="country"
-                            maxLength={40}
+                            name="Country"
+                            value={this.state.newContact.Country}
+                            controlFunc={this.updateProfileData}
+                            maxLength={80}
                             placeholder="Enter your country"
                             errorMessage="Please enter a valid country"
-                            
 
                         />
-                     </div>
+
+                    </div>
                     <div className="column">
 
-                   
+
                         <ChildSingleInput
                             inputType="text"
                             label="City"
-                            name="city"
+                            name="City"
+                            value={this.state.newContact.City}
+                            controlFunc={this.updateProfileData}
                             maxLength={80}
                             placeholder="Enter your city"
                             errorMessage="Please enter a valid city"
 
                         />
-                     </div>
-                     <div className="column">
+                      
+                    </div>
+                    <div className="column">
+
                         <ChildSingleInput
                             inputType="text"
                             label="Post Code"
-                            name="postcode"
-                            maxLength={80}
+                            name="PostCode"
+                            value={this.state.newContact.PostCode}
+                            controlFunc={this.updateProfileData}
+                            maxLength={4}
                             placeholder="Enter your post code"
                             errorMessage="Please enter a valid post code"
 
-
                         />
+
+
                     </div>
 
                 </div>
                 <div className="row">
                     <div className="column">
-                        <button type="button" className="ui teal button" >Save</button>
+                        <button type="button" className="ui teal button" onClick={this.saveContact}>Save</button>
                         <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
                     </div>
                 </div>
             </div>
 
 
-         
+
         )
     }
     renderDisplay() {
+        let address = this.props.details ? `${this.props.details.Number} ${this.props.details.Street} ${this.props.details.Suburb} ${this.props.details.PostCode}` : ""
+        let city = this.props.details ? this.props.City : ""
+        let country = this.props.details ? this.props.Country : "" 
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <React.Fragment>
-                        <p>Address: </p>
-                        <p>City:</p>
-                        <p>Country: </p>
+                        <p>Address:{ address} </p>
+                        <p>City: {city}</p>
+                        <p>Country:{country} </p>
+                        
                     </React.Fragment>
                     <button type="button" className="ui right floated teal button" onClick={this.openEdit}>Edit</button>
                 </div>
@@ -189,7 +213,7 @@ export class Address extends React.Component {
 export class Nationality extends React.Component {
     constructor(props) {
         super(props)
-        //this.handleDropDownSelect = this.handleDropDownSelect.bind(this);
+       // this.handleDropDownSelect = this.handleDropDownSelect.bind(this);
 
     }
     componentDidMount() {
@@ -206,22 +230,26 @@ export class Nationality extends React.Component {
         return (
 
 
-            
-                    <div className='row'>
-                        <div className="ui sixteen wide column">
-                            <React.Fragment>
-                                <Dropdown
-                                    placeholder='Select country'
-                                    search
-                                    selection
-                                    options={countriesoptions}
-                                />
-                            </React.Fragment>
+            <div className='row'>
+                <div className="ui sixteen wide column">
+                    <React.Fragment>
 
-                        </div>
-                    </div>
 
-             
+                        <Dropdown
+                            placeholder='Select your Nationality'
+                            search
+                            selection
+                            fluid
+                            options={countriesoptions}
+                       //onChange={this.handleDropDownSelect} 
+                        // value={selectedCountry}
+                        />
+
+                    </React.Fragment>
+
+                </div>
+            </div>
         );
     }
 }
+

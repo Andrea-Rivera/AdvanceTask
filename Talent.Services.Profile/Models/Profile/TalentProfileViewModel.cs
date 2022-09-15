@@ -21,6 +21,12 @@ namespace Talent.Services.Profile.Models.Profile
         public bool IsMobilePhoneVerified { get; set; }
 
         public Address Address { get; set; }
+        public string Number { get; set; }
+        public string Street { get; set; }
+        public string Suburb { get; set; }
+        public int PostCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public string Nationality { get; set; }
         public string VisaStatus { get; set; }
         public DateTime? VisaExpiryDate { get; set; } 
@@ -34,6 +40,8 @@ namespace Talent.Services.Profile.Models.Profile
         public string Summary { get; set; }
         public string Description { get; set; }
         public LinkedAccounts LinkedAccounts { get; set; }
+        public string LinkedIn { get; set; }
+        public string GitHub { get; set; }
         public JobSeekingStatus JobSeekingStatus { get; set; }
 
         public List<AddLanguageViewModel> Languages { get; set; }

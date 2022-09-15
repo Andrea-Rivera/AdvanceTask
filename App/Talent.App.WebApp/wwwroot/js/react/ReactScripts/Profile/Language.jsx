@@ -89,7 +89,7 @@ export default class Language extends React.Component {
                    
                     name="language"
                     value={this.state.newContact.language}
-                    controlFunc={this.handleChange}
+                    updateAndSaveData={this.handleChange}
                     maxLength={80}
                     placeholder="Add Language"
                     errorMessage="Please enter a language"
@@ -141,7 +141,7 @@ export default class Language extends React.Component {
                     <tr className="">
                         <td className="">{Language}</td>
                         <td className="">{Level}</td>
-                        <td className="">3</td>
+                        <td className=""></td>
                     </tr>
                 </tbody>
             </table>
