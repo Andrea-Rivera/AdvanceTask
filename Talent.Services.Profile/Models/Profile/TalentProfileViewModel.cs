@@ -45,6 +45,8 @@ namespace Talent.Services.Profile.Models.Profile
         public JobSeekingStatus JobSeekingStatus { get; set; }
 
         public List<AddLanguageViewModel> Languages { get; set; }
+        public string Name { get; set; }
+        public string Level { get; set; }
         public List<AddSkillViewModel> Skills { get; set; }
         public List<AddEducationViewModel> Education { get; set; }
         public List<AddCertificationViewModel> Certifications { get; set; }
