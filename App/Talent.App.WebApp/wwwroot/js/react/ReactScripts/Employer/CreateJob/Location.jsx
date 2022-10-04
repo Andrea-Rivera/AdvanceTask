@@ -19,7 +19,7 @@ export class Location extends React.Component {
         const name = event.target.name;
         let value = event.target.value;
         const id = event.target.id;
-
+        
         data[name] = value;
         if (name == "country") {
             data["city"] = "";
