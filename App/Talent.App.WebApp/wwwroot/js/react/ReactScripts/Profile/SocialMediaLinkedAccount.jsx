@@ -9,12 +9,11 @@ export default class SocialMediaLinkedAccount extends React.Component {
     constructor(props) {
         super(props);
 
-        const details = props.details ?
+        const details = props.linkedAccounts ?
             Object.assign({}, props.details)
             : {
                 LinkedIn: "",
                 Github: ""
-
 
             }
         this.state = {
@@ -24,7 +23,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
 
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.updateProfileData = this.updateProfileData.bind(this)
         this.saveContact = this.saveContact.bind(this)
         this.renderEdit = this.renderEdit.bind(this)
         this.renderDisplay = this.renderDisplay.bind(this)
@@ -51,7 +50,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
         })
     }
 
-    handleChange(event) {
+    updateProfileData(event) {
         const data = Object.assign({}, this.state.newContact)
        data[event.target.name] = event.target.value
         this.setState({
@@ -83,7 +82,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
                     label="LinkedIn"
                     name="LinkedIn"
                     value={this.state.newContact.LinkedIn}
-                    controlFunc={this.handleChange} 
+                    controlFunc={this.updateProfileData} 
                     maxLength={80}
                     placeholder="Enter your LinkedIn Url"
                     errorMessage="Please enter a valid LinkedIn  Url"
@@ -95,7 +94,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
                     label="Github"
                     name="Github"
                     value={this.state.newContact.Github}
-                    controlFunc={this.handleChange} 
+                    controlFunc={this.updateProfileData} 
                     maxLength={80}
                     placeholder="Enter your GitHub Url"
                     errorMessage="Please enter a valid GitHub account"
@@ -108,12 +107,14 @@ export default class SocialMediaLinkedAccount extends React.Component {
     }
 
     renderDisplay() {
-
+    
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <button className="ui linkedin button" disabled ><i className="linkedin icon" ></i>LinkedIn</button>
                     <button className="ui github button" disabled><i className="github icon"></i>GitHub</button>
+
+                    
 
                     <button type="button" className="ui right floated teal button" onClick={this.openEdit}>Edit</button>
                 </div>
@@ -124,3 +125,4 @@ export default class SocialMediaLinkedAccount extends React.Component {
     }
 
 }
+

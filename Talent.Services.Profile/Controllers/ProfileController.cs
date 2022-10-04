@@ -441,8 +441,6 @@ namespace Talent.Services.Profile.Controllers
         }
 
 
-
-
     [HttpPost("updateTalentProfile")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> UpdateTalentProfile([FromBody]TalentProfileViewModel profile)

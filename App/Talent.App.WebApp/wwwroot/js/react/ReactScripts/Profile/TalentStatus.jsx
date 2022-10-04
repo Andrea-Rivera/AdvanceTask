@@ -13,3 +13,4 @@ export default class TalentStatus extends React.Component {
         return (null);
     }
 }
+
