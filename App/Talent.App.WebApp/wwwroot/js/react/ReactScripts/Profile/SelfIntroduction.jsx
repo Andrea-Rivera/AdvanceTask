@@ -12,7 +12,6 @@ export default class SelfIntroduction extends React.Component {
             : {
                 summary: "",
                 description: ""
-
             }
 
         this.state =
@@ -44,7 +43,13 @@ export default class SelfIntroduction extends React.Component {
     }
 
     render(item) {
+
+       // let summary = this.props.summary ? this.state.newContact.summary : ""
+       
         return (
+
+           
+
             <div className='ui sixteen wide column'>
                 <ChildSingleInput
                     inputType="text"
@@ -76,6 +81,7 @@ export default class SelfIntroduction extends React.Component {
         )
     }
 }
+
 
 
 

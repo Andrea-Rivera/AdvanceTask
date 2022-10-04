@@ -2,7 +2,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import { Table } from 'semantic-ui-react';
-import { Dropdown } from 'semantic-ui-react'
+import { Icon, Dropdown } from 'semantic-ui-react'
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
 
 export default class Language extends React.Component {
@@ -10,11 +10,11 @@ export default class Language extends React.Component {
         super(props);
        
 
-        const details = props.details ?
+        const details = props.languageData ?
             Object.assign({}, props.details)
             : {
-                language: "",
-                level: "",
+                Name: "",
+                Level: "",
                
             }
 
@@ -29,6 +29,9 @@ export default class Language extends React.Component {
         this.saveContact = this.saveContact.bind(this)
         this.renderEdit = this.renderEdit.bind(this)
         this.renderDisplay = this.renderDisplay.bind(this)
+    }
+
+    componentDidMount() {
     }
 
     openEdit() {
@@ -51,6 +54,7 @@ export default class Language extends React.Component {
         this.setState({
             newContact: data
         })
+        console.log(data)
     }
 
     saveContact() {
@@ -86,10 +90,9 @@ export default class Language extends React.Component {
             
                 <ChildSingleInput
                     inputType="text"
-                   
-                    name="language"
-                    value={this.state.newContact.language}
-                    updateAndSaveData={this.handleChange}
+                    name="Name"
+                    value={this.state.newContact.Name}
+                    controlFunc={this.handleChange}
                     maxLength={80}
                     placeholder="Add Language"
                     errorMessage="Please enter a language"
@@ -101,11 +104,9 @@ export default class Language extends React.Component {
                         
                     placeholder='Language Level'
                     label="Level"
-                    name="level"
-                    value={this.state.newContact.level}
+                    name="Level"
+                    value={this.state.newContact.Level}
                     controlFunc={this.handleChange}
-                    search
-                    selection
                     options={options}
                 />
                     </div>
@@ -121,9 +122,8 @@ export default class Language extends React.Component {
     renderDisplay() {
         //table rows
 
-        let Language = this.props.details ? `${this.props.details.language}` : ""
-        let Level = this.props.details ? this.props.details.level : ""
-       
+        let Language = this.props.languageData ? `${this.state.newContact.Name}` : ""
+        let Level = this.props.languageData ? this.state.newContact.Level : ""
 
         return (
            
@@ -139,9 +139,9 @@ export default class Language extends React.Component {
                     </thead>
                 <tbody className="">
                     <tr className="">
-                        <td className="">{Language}</td>
+                        <td className="">{Language} </td>
                         <td className="">{Level}</td>
-                        <td className=""></td>
+                        <td className=""> <Icon name="edit" color="olive" onClick={this.openEdit} /><Icon name="delete" color="red" onClick={this.openEdit} /></td>
                     </tr>
                 </tbody>
             </table>

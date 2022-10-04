@@ -9,12 +9,11 @@ export default class SocialMediaLinkedAccount extends React.Component {
     constructor(props) {
         super(props);
 
-        const details = props.details ?
+        const details = props.linkedAccounts ?
             Object.assign({}, props.details)
             : {
                 LinkedIn: "",
                 Github: ""
-
 
             }
         this.state = {
@@ -108,12 +107,14 @@ export default class SocialMediaLinkedAccount extends React.Component {
     }
 
     renderDisplay() {
-
+    
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <button className="ui linkedin button" disabled ><i className="linkedin icon" ></i>LinkedIn</button>
                     <button className="ui github button" disabled><i className="github icon"></i>GitHub</button>
+
+                    
 
                     <button type="button" className="ui right floated teal button" onClick={this.openEdit}>Edit</button>
                 </div>
@@ -124,3 +125,4 @@ export default class SocialMediaLinkedAccount extends React.Component {
     }
 
 }
+
