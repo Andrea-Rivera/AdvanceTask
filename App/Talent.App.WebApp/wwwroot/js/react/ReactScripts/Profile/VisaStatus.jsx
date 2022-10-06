@@ -1,95 +1,69 @@
 ﻿import React from 'react'
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import { Select,Dropdown} from 'semantic-ui-react'
+import { Select} from 'semantic-ui-react'
 
 
 export default class VisaStatus extends React.Component {
     constructor(props) {
         super(props)
 
-        const details = props.details ?
-            Object.assign({}, props.details)
-            : {
-                VisaStatus: "",
-                VisaExpiryDate: ""
+        this.visaTypes = [
+            { value: 'Citizen', title: 'Citizen' },
+            { value: 'Permanent Resident', title: 'Permanent Resident' },
+            { value: 'Work Visa', title: 'Work Visa' },
+            { value: 'Student Visa', title: 'Student Visa' }
+        ];
 
-            }
-        this.state = {
-            newContact: details
-        }
-        this.updateProfileData = this.updateProfileData.bind(this);
-        this.handleChangeDate = this.handleChangeDate.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.saveVisaStatus = this.saveVisaStatus.bind(this);
     }
-
-    componentDidMount() {
-
+    handleChange(event) {
+        this.props.updateProfileData({ [event.target.name]: event.target.value });
     }
-
-    handleChangeDate(date, name) {
-        if (name == "VisaExpiryDate") {
-            this.props.updateProfileData({ target: { name: "VisaExpiryDate", value: date } });
-        }
-        else {
-            this.props.updateProfileData()
-        }
+    saveVisaStatus() {
+        this.props.saveProfileData({
+            visaStatus: this.props.visaStatus,
+            visaExpiryDate: this.props.visaExpiryDate
+        });
     }
-
-
-    updateProfileData(event) {
-        var data = Object.assign({}, this.state.newContact)
-        data[event.target.name] = event.target.value
-        this.setState({
-            newContact: data
-            
-        })
-        console.log(data)
-        }
 
 
     render() {
-        const optionVisa = [
-            { key: 'Citizen', value: 'Citizen' },
-            { key: 'Permanent Resident', value: 'Permanent Resident' },
-            { key: 'Work Visa', value: 'Work Visa' },
-            { key: 'Student Visa', value: 'Student Visa' },
+        const needsExpiryDate = this.props.VisaStatus === 'Work Visa' || this.props.VisaStatus === 'Student Visa';
+        const alreadyExpired = new Date(this.props.VisaExpiryDate) <= Date.now();
+       
 
-
-        ];
-        //const selectedVisaType = this.props.newContact;
-        //const visaoptions = Object.keys(options).map((x) => <option key={x} value={x}>{x}</option>);
-        
-        
         return (
-            <div>
-             
-           
-                <label><b>Visa Status</b></label>
-                <Select
-                    name='VisaStatus'
-                        selectedOption={this.props.visaStatus}
-                        onChange={this.handleChange}
-                    placeholder='Please select a visa type'
-                    options={optionVisa}
-                />
-                   <br/>
-                 
-               
-                    <ChildSingleInput
-                        inputType="Date"
-                        label="Visa Expiry Date"
-                        name="VisaExpiryDate"
-                        maxLength={3}
-                        value={this.state.newContact.VisaExpiryDate}
-                        controlFunc={this.updateProfileData}
-                        placeholder="Date"
-                        errorMessage="Please enter a valid Date"
-
-
-                    />
-              
-             </div>
+            <React.Fragment>
+                <div className='ui six wide column'>
+                    <div className='field'>
+                        <label>Visa Type</label>
+                        <Select
+                            name='visaStatus'
+                            selectedOption={this.props.visaStatus}
+                            controlFunc={this.handleChange}
+                            placeholder='Please select a visa type'
+                            options={this.visaTypes}
+                        />
+                    </div>
+                </div>
+                <div className='ui six wide column'>
+                    {needsExpiryDate && (
+                        <ChildSingleInput
+                            label='Visa Expiry Date'
+                            inputType='date'
+                            name='visaExpiryDate'
+                            value={this.props.visaExpiryDate}
+                            controlFunc={this.handleChange}
+                            errorMessage='Already past expiry date'
+                            isError={alreadyExpired}
+                        />
+                    )}
+                </div>
+                <div className='ui four wide column'>
+                    <button type='button' className='visa-status ui teal button' onClick={this.saveVisaStatus}>Save</button>
+                </div>
+            </React.Fragment>
         );
     }
 }

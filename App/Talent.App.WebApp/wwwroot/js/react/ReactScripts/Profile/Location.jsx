@@ -113,15 +113,12 @@ export class Address extends React.Component {
                     name="City">
                     <option value="0">Select city</option>
                     {popcities}
-                </select>
+                </select><br/>
             </span>
 
         }
 
-        //let countriesoptions = [];
-        //const selectedCountry = this.props.details;
-
-        //countriesoptions = Object.keys(Countries).map((x) => <option key={x} value={x}>{x}</option>);
+       
        
        
         return (
@@ -179,31 +176,20 @@ export class Address extends React.Component {
                     <div className="column">
                     
                     <label><b>Country</b></label>
-                    <select className="ui right labeled dropdown search"
-                        value={selectedCountry}
-                        onChange={this.updateProfileData}
+                        <select className="ui right labeled dropdown"
+                            placeholder = "Country"
+                            value={selectedCountry}
+                            onChange={this.handleChange}
                         name="Country">
                         <option value="" >Select Your Country</option>
                         {countriesoptions}
                             </select>
-                    
-                    </div>
-
-                    <div className="column">
-
-                        <label><b>City</b></label>
-                        
-                        
-                        <select className="ui right labeled dropdown search"
-                            value={citiesoptions}
-                            onChange={this.updateProfileData}
-                            name="Country">
-                            <option value="" >Select Your City</option>
-                            
-                        </select>
                        
+                {citiesoptions}
+            </div>
+                    
 
-                    </div>
+                    
                     
                     <div className="column">
                         <ChildSingleInput
@@ -347,7 +333,22 @@ export class Nationality extends React.Component {
 
             //</div>
 
-                    
+
+            //<div className="column">
+
+            //            <label><b>City</b></label>
+                        
+                        
+            //            <select className="ui right labeled dropdown search"
+            //                value={citiesoptions}
+            //                onChange={this.updateProfileData}
+            //                name="Country">
+            //                <option value="" >Select Your City</option>
+                            
+            //            </select>
+                       
+
+            //        </div>
         );
     }
 }
