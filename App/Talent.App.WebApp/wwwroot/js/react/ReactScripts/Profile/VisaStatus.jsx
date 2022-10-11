@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
-import { Select} from 'semantic-ui-react'
+import { Select } from '../Form/Select.jsx';
 
 
 export default class VisaStatus extends React.Component {
@@ -29,8 +29,8 @@ export default class VisaStatus extends React.Component {
 
 
     render() {
-        const needsExpiryDate = this.props.VisaStatus === 'Work Visa' || this.props.VisaStatus === 'Student Visa';
-        const alreadyExpired = new Date(this.props.VisaExpiryDate) <= Date.now();
+        const needsExpiryDate = this.props.visaStatus === 'Work Visa' || this.props.visaStatus === 'Student Visa';
+        const alreadyExpired = new Date(this.props.visaExpiryDate) <= Date.now();
        
 
         return (
@@ -60,10 +60,17 @@ export default class VisaStatus extends React.Component {
                         />
                     )}
                 </div>
+
+              
+
                 <div className='ui four wide column'>
                     <button type='button' className='visa-status ui teal button' onClick={this.saveVisaStatus}>Save</button>
                 </div>
+
+
             </React.Fragment>
+
+
         );
     }
 }

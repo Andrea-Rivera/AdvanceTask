@@ -1,8 +1,8 @@
 ﻿/* Language section */
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Table } from 'semantic-ui-react';
-import { Icon, Dropdown } from 'semantic-ui-react'
+import { Select } from '../Form/Select.jsx';
+import { Icon } from 'semantic-ui-react'
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
 
 export default class Language extends React.Component {
@@ -22,6 +22,13 @@ export default class Language extends React.Component {
             showEditSection: false,
             newContact: details
         }
+
+        this.levelOptions = [
+            { value: 'Basic', title: 'Basic' },
+            { value: 'Conversational', title: 'Conversational'},
+            { value: 'Fluent', title: 'Fluent'},
+            { value: 'Native ', title: 'Native' }
+        ];
 
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
@@ -74,14 +81,7 @@ export default class Language extends React.Component {
     }
 
     renderEdit() {
-        const options = [
-            { key: 'Basic', text: 'Basic', value: 'Basic' },
-            { key: 'Conversational', text: 'Conversational', value: 'Conversational' },
-            { key: 'Fluent', text: 'Fluent', value: 'Fluent' },
-            { key: 'Native ', text: 'Native', value: 'Native' },
-
-
-        ];
+       
         return (
 
             <div className="ui divided three column grid">
@@ -100,14 +100,12 @@ export default class Language extends React.Component {
                     </div>
                     <div className="column">
              
-                    <Dropdown
-                        
-                    placeholder='Language Level'
-                    label="Level"
-                    name="Level"
-                    value={this.state.newContact.Level}
-                    controlFunc={this.handleChange}
-                    options={options}
+                    <Select
+                        name='Level'
+                        selectedOption={this.props.Level}
+                        controlFunc={this.handleChange}
+                        placeholder='Language Level'
+                        options={this.levelOptions}
                 />
                     </div>
                     <div className="column">
@@ -120,10 +118,10 @@ export default class Language extends React.Component {
     }
 
     renderDisplay() {
-        //table rows
-
+       
         let Language = this.props.languageData ? `${this.state.newContact.Name}` : ""
         let Level = this.props.languageData ? this.state.newContact.Level : ""
+       
 
         return (
            
@@ -136,7 +134,9 @@ export default class Language extends React.Component {
                         <th><button className="ui secondary button" onClick={this.openEdit}>+ Add New</button></th>
                         </tr>
                             
-                    </thead>
+                </thead>
+
+             
                 <tbody className="">
                     <tr className="">
                         <td className="">{Language} </td>
@@ -151,3 +151,5 @@ export default class Language extends React.Component {
         )
     }
 }
+
+//selectedCountry != "" && selectedCountry != null)

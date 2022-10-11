@@ -1,9 +1,9 @@
 ﻿import React from 'react'
 import Cookies from 'js-cookie'
-import { default as Countries } from '../../../../util/jsonFiles/countries.json';
+import { default as CountriesMap } from '../../../../util/jsonFiles/countries.json';
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
-import { Grid, Dropdown } from 'semantic-ui-react'
-import { countryOptions } from '../Employer/common';
+import { select } from 'semantic-ui-react'
+
 
 
 
@@ -16,10 +16,10 @@ export class Address extends React.Component {
                 Number: "",
                 Street: "",
                 Suburb: "",
-                PostCode:0,
+                PostCode: 0,
                 City: "",
                 Country: ""
-               
+
             }
         this.state = {
             showEditSection: false,
@@ -65,7 +65,7 @@ export class Address extends React.Component {
         //required
         const name = event.target.name;
         let value = event.target.value;
-        const id = event.target.id;
+       
 
         data[name] = value;
         if (name == "Country") {
@@ -81,7 +81,7 @@ export class Address extends React.Component {
 
     saveContact() {
 
-        
+
         const data = Object.assign({}, this.state.newContact)
         this.props.saveProfileData(data)
         this.closeEdit()
@@ -101,10 +101,11 @@ export class Address extends React.Component {
         const selectedCountry = this.props.newContact;
         const selectedCity = this.props.newContact;
 
-        countriesoptions = Object.keys(Countries).map((x) => <option key={x} value={x}>{x}</option>);
+        countriesoptions = Object.keys(CountriesMap).map((x) => <option key={x} value={x}>{x}</option>);
         if (selectedCountry != "" && selectedCountry != null) {
 
-            var popcities = Countries[selectedCountry].map((x) => <option key={x} value={x}>{x}</option>);
+            var popcities = CountriesMap[selectedCountry].map((x) => <option key={x} value={x}>{x}</option>);
+
             citiesoptions = <span>
                 <select className="ui dropdown"
                     placeholder="City"
@@ -113,14 +114,14 @@ export class Address extends React.Component {
                     name="City">
                     <option value="0">Select city</option>
                     {popcities}
-                </select><br/>
+                </select><br />
             </span>
 
         }
 
-       
-       
-       
+
+
+
         return (
 
             <div className="ui divided three column grid">
@@ -174,23 +175,23 @@ export class Address extends React.Component {
                 </div>
                 <div className="row">
                     <div className="column">
-                    
-                    <label><b>Country</b></label>
+
+                        <label><b>Country</b></label>
                         <select className="ui right labeled dropdown"
-                            placeholder = "Country"
+                            placeholder="Country"
                             value={selectedCountry}
                             onChange={this.handleChange}
-                        name="Country">
-                        <option value="" >Select Your Country</option>
-                        {countriesoptions}
-                            </select>
-                       
-                {citiesoptions}
-            </div>
-                    
+                            name="Country">
+                            <option value="" >Select Your Country</option>
+                            {countriesoptions}
+                        </select>
+                        <div style={{ marginBottom: "5px", marginTop: "5px" }}></div>
+                        {citiesoptions}
+                    </div>
 
-                    
-                    
+
+
+
                     <div className="column">
                         <ChildSingleInput
                             inputType="text"
@@ -250,105 +251,92 @@ export class Nationality extends React.Component {
 
 
     saveProfileData(event) {
-        const data = Object.assign({}, this.props.details)
-        data[event.target.name] = event.target.value
-        this.setState({
-            details: data
+        //const data = Object.assign({}, this.props.details)
+        //data[event.target.name] = event.target.value
+        //this.setState({
+        //    details: data
 
-        })
-        console.log(data)
-        //var data = Object.assign({}, this.state.details)
-        //const name = event.target.name;
-        //let value = event.target.value;
-        //const id = event.target.id;
-        //data[name] = value;
-        //if (name == "Country") {
-        //    data["City"] = "";
-        //}
-        //var updateData = {
-        //    target: { name: "location", value: data }
-        //}
-        //this.props.saveProfileData(updateData);
-       
+        //})
         //console.log(data)
+        var data = Object.assign({}, this.props.details)
+        const name = event.target.name;
+        let value = event.target.value;
+        
+        data[name] = value;
+        if (name == "Country") {
+            data["City"] = "";
+        }
+        var updateData = {
+            target: { name: "details", value: data }
+        }
+        this.props.saveProfileData(updateData);
+       
+        console.log(data)
     }
 
  
 
     render() {
-        let countriesoptions = [];
-        const selectedCountry = this.props.details;
-
-        countriesoptions = Object.keys(Countries).map((x) => <option key={x} value={x}>{x}</option>);
         //let countriesoptions = [];
-        //let citiesoptions = [];
         //const selectedCountry = this.props.details;
-        //const selectedCity = this.props.details;
 
-        //countriesoptions = Object.keys(Countries).map((x) => <option key={x} value={x}>{x}</option>);
-        //if (selectedCountry != "" && selectedCountry != null) {
+        //countriesoptions = Object.keys(CountriesMap).map((x) => <option key={x} value={x}>{x}</option>);
+        let countriesoptions = [];
+        let citiesoptions = [];
+        const selectedCountry = this.props.details;
+        const selectedCity = this.props.details;
 
-        //    var popcities = Countries[selectedCountry].map(x => <option key={x} value={x}>{x}</option>);
-        //    citiesoptions = <span>
-        //        <select className="ui dropdown"
-        //            placeholder="City"
-        //            value={selectedCity}
-        //            onChange={this.saveProfileData}
-        //            name="City">
-        //            <option value="0">Select city</option>
-        //            {popcities}
-        //        </select>
-        //    </span>
+        countriesoptions = Object.keys(CountriesMap).map((x) => <option key={x} value={x}>{x}</option>);
+        if (selectedCountry != "" && selectedCountry != null) {
+
+            var popcities = CountriesMap[selectedCountry].map(x => <option key={x} value={x}>{x}</option>);
+
+            citiesoptions = <span>
+                <select className="ui dropdown"
+                    placeholder="City"
+                    value={selectedCity}
+                    onChange={this.saveProfileData}
+                    name="City">
+                    <option value="0">Select city</option>
+                    {popcities}
+                </select>
+            </span>
 
 
-        //}
+        }
 
         return (
-            <div>
-                <label><b>Nationality</b></label>
-                <select className="ui right labeled dropdown search"
-                    value={selectedCountry}
-                    onChange={this.updateProfileData}
-                    name="nationality">
-                    <option value="" >Select Your Nationality</option>
-                    {countriesoptions}
-
-                </select>
-                <br />
-
-
-            </div>
             //<div>
-            //    <label><b>Country</b></label>
+            //    <label><b>Nationality</b></label>
             //    <select className="ui right labeled dropdown search"
-            //        placeholder="Country"
             //        value={selectedCountry}
             //        onChange={this.saveProfileData}
-            //        name="Country">
-            //        <option value="" >Select Your Country</option>
+            //        name="nationality">
+            //        <option value="" >Select Your Nationality</option>
             //        {countriesoptions}
+
             //    </select>
-            //    <div style={{ marginBottom:"5px", marginTop:"5px" }}></div>
-            //    {citiesoptions}
+            //    <br />
+
 
             //</div>
+            <div>
+                <label><b>Country</b></label>
+                <select className="ui right labeled dropdown search"
+                    placeholder="Country"
+                    value={selectedCountry}
+                    onChange={this.saveProfileData}
+                    name="Country">
+                    <option value="" >Select Your Country</option>
+                    {countriesoptions}
+                </select>
+                <div style={{ marginBottom:"5px", marginTop:"5px" }}></div>
+                {citiesoptions}
+
+            </div>
 
 
-            //<div className="column">
-
-            //            <label><b>City</b></label>
-                        
-                        
-            //            <select className="ui right labeled dropdown search"
-            //                value={citiesoptions}
-            //                onChange={this.updateProfileData}
-            //                name="Country">
-            //                <option value="" >Select Your City</option>
-                            
-            //            </select>
-                       
-
-            //        </div>
+        
         );
     }
 }
